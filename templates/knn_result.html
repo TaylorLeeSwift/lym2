@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNN Result</title>
+</head>
+<body>
+    <h2>KNN Clustering Result</h2>
+    <p>Response Time: {{ response_time }} milliseconds</p>
+
+    {% for result in results %}
+        <div style="margin-bottom: 20px;">
+            <h3>Class {{ result.class_id }}</h3>
+            <h4>Popular Words:</h4>
+            <ul>
+                {% for word in result.popular_words %}
+                    <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+            <h4>Cluster Reviews:</h4>
+            <ul>
+                {% for review in result.cluster_reviews %}
+                    <li>{{ review }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</body>
+</html>

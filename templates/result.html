@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Data Result</title>
+</head>
+<body>
+    <h2>Result</h2>
+    <p>Response Time: {{ result.response_time }} milliseconds</p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>Population</th>
+                <th>Eular Distance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for city in result.cities %}
+                <tr>
+                    <td>{{ city.city }}</td>
+                    <td>{{ city.lat }}</td>
+                    <td>{{ city.lng }}</td>
+                    <td>{{ city.country }}</td>
+                    <td>{{ city.state }}</td>
+                    <td>{{ city.population }}</td>
+                    <td>{{ city.eular_distance }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

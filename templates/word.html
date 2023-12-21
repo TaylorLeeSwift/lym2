@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Operations</title>
+</head>
+<body>
+    <h1>Yiming Li   6417</h1>
+
+    <h2>Popular Words Function</h2>
+
+    <form action="/popular_words" method="get">
+        <label for="city">City:</label>
+        <input type="text" name="city">
+        <label for="limit">Limit:</label>
+        <input type="number" name="limit" value="10">
+        <button type="submit" >Get Words</button>
+    </form>
+
+    <form action="/substitute_words" method="post">
+        <label for="word">Replace:</label>
+        <input type="text" name="word" required>
+        <label for="substitute">Substitute:</label>
+        <input type="text" name="substitute" required>
+        <button type="submit" onclick="submitForm()" >Substitute</button>
+    </form>
+    <pre id="results"></pre>
+
+    <script>
+        document.querySelector('form[action="/popular_words"]').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const form = new FormData(this);
+            const results = await fetch(this.action + '?' + new URLSearchParams(form), { method: 'GET' });
+            const result = await results.json();
+
+            document.getElementById('results').textContent = JSON.stringify(result, null, 2);
+
+
+        });
+
+        document.querySelector('form[action="/popular_words1"]').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const form = new FormData(this);
+            const results = await fetch(this.action + '?' + new URLSearchParams(form), { method: 'GET' });
+            const result = await results.json();
+
+            document.getElementById('results').textContent = JSON.stringify(result, null, 2);
+
+
+        });
+
+        document.querySelector('form[action="/substitute_words"]').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const form = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: new URLSearchParams(form),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' // 设置适当的 Content-Type
+                }
+            });
+            const result = await response.json();
+
+            document.getElementById('response').textContent = JSON.stringify(result, null, 2);
+
+
+        });
+        function submitForm() {
+          var xhr = new XMLHttpRequest();
+          var formData = new FormData(document.getElementById('myForm'));
+
+          xhr.open('POST', '/substitute_words', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Set your content type if needed
+          xhr.setRequestHeader('Custom-Header', 'header-value'); // Set additional headers as needed
+
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              // Handle the response here
+              console.log(xhr.responseText);
+            }
+      };
+
+      xhr.send(formData);
+    }
+    </script>
+</body>
+</html>

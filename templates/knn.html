@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNN Reviews</title>
+</head>
+<body>
+    <h1>KNN Reviews Results</h1>
+    <ul>
+        {% for result in results %}
+            <li>
+                <h2>Cluster Center City: {{ result.center_city }}</h2>
+                <p>Cities in Cluster: {{ result.cities_in_cluster }}</p>
+                <p>Top Words: {{ result.top_words }}</p>
+                <p>Weighted Average Score: {{ result.weighted_average_score }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
