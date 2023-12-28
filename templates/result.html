@@ -1,40 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Data Result</title>
+    <title>Query Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h2>Result</h2>
-    <p>Response Time: {{ result.response_time }} milliseconds</p>
+    <h1>Query Result</h1>
+    <div style="width: 80%;">
+        <canvas id="barChart"></canvas>
+    </div>
+    <br>
+    <p>Response Time: {{ response_time }} ms</p>
+    <script>
+        var distances = {{ distances }};
+        var cityNames = distances.map(function(item) { return item.city; });
+        var distancesData = distances.map(function(item) { return item.distance; });
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>City</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Country</th>
-                <th>State</th>
-                <th>Population</th>
-                <th>Eular Distance</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for city in result.cities %}
-                <tr>
-                    <td>{{ city.city }}</td>
-                    <td>{{ city.lat }}</td>
-                    <td>{{ city.lng }}</td>
-                    <td>{{ city.country }}</td>
-                    <td>{{ city.state }}</td>
-                    <td>{{ city.population }}</td>
-                    <td>{{ city.eular_distance }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cityNames,
+                datasets: [{
+                    label: 'Distance to Target City',
+                    data: distancesData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
